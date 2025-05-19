@@ -1,0 +1,7 @@
+asyncio
+playwright
+requests
+bs4
+aiohttp
+python-dotenv
+certifi
