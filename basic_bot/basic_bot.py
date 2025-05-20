@@ -24,7 +24,6 @@ def make_request(session, url):
     """
     start = time.time()
     resp = session.get(url)
-    logger.info(f"Response: {resp.content}")
     elapsed = time.time() - start
     return resp.status_code, elapsed
 

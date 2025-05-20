@@ -5,7 +5,7 @@ import logging
 from playwright.async_api import async_playwright, Playwright
 from collections import deque
 import time
-from typing import Optional
+from typing import List, Optional
 from dotenv import load_dotenv
 
 # Configure logging
@@ -23,7 +23,14 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # Proxy configuration
 PROXY_USER = os.getenv('PROXY_USER')
 PROXY_PASS = os.getenv('PROXY_PASS')
-PROXIES = os.getenv('PROXIES', '').split(',') if os.getenv('PROXIES') else []
+# Initialize with None for local IP
+PROXIES: List[str] = ['']
+# Add any configured proxies from environment
+proxies_env = os.getenv('PROXIES')
+if proxies_env:
+    PROXIES.extend(proxies_env.split(','))
+
+logger.info(f"Configured proxies: {len(PROXIES)-1} proxy servers plus direct connection")
 
 class RateLimiter:
     """
